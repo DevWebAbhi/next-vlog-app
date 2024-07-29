@@ -236,6 +236,8 @@ const MyVlogsProvider = ({userDetails}) => {
       if (res && res.data && res.data.allvlogs) {
         console.log(res)
         dispatch(vlogs(res.data.allvlogs));
+      }else{
+        toastPopUp("Something went wrong");
       }
     } catch (error) {
       toastPopUp("Failed to fetch vlogs");

@@ -2,6 +2,7 @@ import { executeQuery } from "@/dbconfig/db";
 import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';
 import { vlogSchema } from "@/zodValidations/zodValidations";
+import { cookies } from "next/headers";
 export const dynamic = 'force-dynamic';
 const JWT_CODE = process.env.JWT_CODE;
 
@@ -15,10 +16,11 @@ export const PUT = async(req)=>{
         }
         const { searchParams } = new URL(req.url);
         const VlogID = searchParams.get('VlogID');  
+        
         if (!VlogID) {
           return NextResponse.json({ message: 'IP' }, { status: 400 });
         }
-        const {title,description} = await req.json();
+        const {title,description} = await req.json().catch(() => null);;
         try {
             vlogSchema.parse({title,description})
           } catch (error) {
@@ -33,7 +35,7 @@ export const PUT = async(req)=>{
       return NextResponse.json({ message: 'TE' }, { status: 500 });
     }
 
-
+    
         const editVlog =await executeQuery({
             query:'CALL nextvlog.EditVlog(?,?,?,?,?)',
             values:[VlogID,email,token.value,title,description]

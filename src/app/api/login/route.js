@@ -3,7 +3,7 @@ import { executeQuery } from "@/dbconfig/db";
 import { userLoginSchema } from "@/zodValidations/zodValidations";
 import jwt from "jsonwebtoken";
 import mailer from "@/nodemailer/nodemailer";
-
+export const dynamic = 'force-dynamic';
 const JWT_CODE = process.env.JWT_CODE;
 
 export async function POST(req) {

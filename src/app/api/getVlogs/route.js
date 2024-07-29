@@ -40,8 +40,8 @@ export async function GET(req) {
 
         if (allvlogs && allvlogs[0] && allvlogs[0][0] && allvlogs[0][0].Message) {
             const message = allvlogs[0][0].Message;
-            if (message === "NVF") {
-                return NextResponse.json({ message: "NVF" }, { status: 200 });
+            if (message === "NOV") {
+                return NextResponse.json({ message: "NOV" }, { status: 200 });
             } else if (message === "SEXT") {
                 return NextResponse.json({ message: "SEXT" }, { status: 500 });
             }
