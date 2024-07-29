@@ -1,0 +1,41 @@
+.vcard {
+    background-color: #f3f4f6;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    z-index: 1; /* Ensure vcard stays below navbar */
+}
+
+.vcard:hover {
+    transform: translateY(-5px);
+}
+
+.vcard img,
+.vcard video {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 300px;
+    margin: auto;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.vcard h1 {
+    padding-bottom: 16px;
+    font-size: 1.5rem;
+}
+
+.vcard p {
+    font-size: 1rem;
+}
+
+.vcard .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding: 8px;
+}
