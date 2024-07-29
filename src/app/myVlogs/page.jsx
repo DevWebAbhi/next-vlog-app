@@ -1,5 +1,5 @@
 import React from 'react'
-import MyVlogsProvider from './myVlogsProvider'
+import MyVlogsProvider from './MyVlogsProvider'
 import { cookies } from 'next/headers'
 
 const page = () => {
