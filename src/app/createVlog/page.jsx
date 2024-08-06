@@ -102,7 +102,7 @@ const Page = () => {
             toastPopUp("Try login again maybe session has expired");
           } else if (message == "NOV") {
             toastPopUp('No vlogs available');
-          } else if(message="TMR"){
+          } else if(message=="TMR"){
             toastPopUp("Too many request");
           }else {
             toastPopUp("something went wrong");
