@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 
 const rateLimitStore = new Map();
 
-const rateLimiter = (ip, token, url) => {
+const rateLimiter = (ip, token) => {
   const currentTime = Date.now();
   const windowMs = 15 * 60 * 1000; 
-  const maxRequests = 70; 
+  const maxRequests = 5; 
 
   const ipKey = `ip:${ip}`;
   const tokenKey = `token:${token}`;
@@ -41,7 +41,7 @@ export function middleware(req) {
   const token = req.headers.get('authorization');
   const url = req.nextUrl.pathname;
 
-  if (!rateLimiter(ip, token, url)) {
+  if (!rateLimiter(ip, token)) {
     return NextResponse.json({ message: 'TMR' }, { status: 429 });
   }
 
@@ -67,7 +67,7 @@ export function middleware(req) {
     const filteredUploads = uploads.filter(timestamp => currentTime - timestamp < windowMs);
 
     if (filteredUploads.length >= maxUploads) {
-      return NextResponse.json({ message: 'File upload limit exceeded' }, { status: 429 });
+      return NextResponse.json({ message: 'TMR' }, { status: 429 });
     }
 
     filteredUploads.push(currentTime);
