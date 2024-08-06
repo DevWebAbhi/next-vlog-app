@@ -17,31 +17,29 @@ export async function POST(req = NextRequest) {
     }
 
     const user = await executeQuery({
-      query: "CALL ForgetPasswordUser(?)",
+      query: "CALL nextvlog.ForgetPasswordUser(?)",
       values: [email],
     });
+    console.log(user)
     if (user && user[0] && user[0][0]) {
       const userMessage = user[0][0].Message;
       if(userMessage == 'SEXT'){
       return NextResponse.json({ message: "ISE" }, { status: 500 });
     } else if (userMessage == "NV") {
-      return NextResponse.json({ message: "NV" }, { status: 401 });
+      return NextResponse.json({ message: "UNV" }, { status: 401 });
     }
     const { Email, Username, UserID, IsVerified } = user[0][0];
 
 
     let authToken;
-    try {
+    
       authToken = jwt.sign(
         { UserID },
         JWT_CODE,
         { algorithm: "HS256" },
         { expiresIn: "1h" }
       );
-    } catch (jwtError) {
-      console.error("JWT Token Error:", jwtError);
-      return NextResponse.json({ message: "TE" }, { status: 500 });
-    }
+   
     const updateToken = await executeQuery({
       query: `CALL nextvlog.UpdateToken(?, ?)`,
       values: [email, authToken],
@@ -52,8 +50,8 @@ export async function POST(req = NextRequest) {
 
       if (updateTokenMessage === "SEXT") {
         return NextResponse.json({ message: "ISE" }, { status: 500 });
-      } else if (updateTokenMessage === "NV") {
-        return NextResponse.json({ message: "NV" }, { status: 401 });
+      } else if (updateTokenMessage === "UNE") {
+        return NextResponse.json({ message: "UNE" }, { status: 401 });
       }
     }
     console.log(user)

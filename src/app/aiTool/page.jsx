@@ -2,7 +2,7 @@
 import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { aiOutputGenerator } from "@/API/ai";
+import { aiOutputGenerator } from "@/app/APIRequest/ai";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   aiToolPrompt,
@@ -61,7 +61,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="min-h-screen text-center mb-5 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-10 pt-24 flex flex-col items-center">
+      <div className="min-h-screen text-center mb-5 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-10 pt-24 flex flex-col items-center">
         <div className="bg-white shadow-lg rounded-md p-6 w-full max-w-3xl">
           <div className="overflow-y-auto min-h-96">
             {selector.textAiOutput

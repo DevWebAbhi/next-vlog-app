@@ -1,5 +1,4 @@
 import axios from "axios";
-
 async function aiOutputGenerator(prompt){
     try {
         const response  = await axios.get("/api/aiOutput",{params:{prompt}});

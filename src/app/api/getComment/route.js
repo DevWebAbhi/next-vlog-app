@@ -10,7 +10,7 @@ export const GET = async (req, res) => {
 
 
     if (!VlogID || !ParentID || !band) {
-      return NextResponse.json({ message: 'IP' }, { status: 400 });
+      return NextResponse.json({ message: 'IIP' }, { status: 400 });
     }
 
    

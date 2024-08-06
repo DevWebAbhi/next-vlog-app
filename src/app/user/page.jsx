@@ -20,7 +20,7 @@ import {
   userSignupSchema,
   forgetPasswordSchema,
 } from "@/zodValidations/zodValidations";
-import { FORGET_PASSWORD, LOGIN, SIGNUP } from "@/API/userAPI";
+import { FORGET_PASSWORD, LOGIN, SIGNUP } from "@/app/APIRequest/userAPI";
 import { toastPopUp } from "../CommonFunctions/popupInfo";
 import { useRouter } from 'next/navigation'
 const Page = () => {
@@ -67,7 +67,7 @@ const Page = () => {
       error.errors.forEach((e) => {
         toastPopUp(e.message);
       });
-      console.error("Validation Error:", error.errors);
+      console.error("Validation Error:", error);
     }
   };
 
@@ -80,17 +80,15 @@ const Page = () => {
           
           toastPopUp("Sucessfully logged in");
           window.location.href = '/'; // Force page refresh
-        } else if (res.response.data.message === "NV") {
-          toastPopUp("You are not authorized user");
-        } else if (res.response.data.message === "SEXT") {
-          toastPopUp("Internal database error");
-        } else if (res.response.data.message == "TE") {
-          toastPopUp("Internal token error");
-        } else if (res.response.data.message == "ISE") {
+        } else if (res.response.data.message === "UNE") {
+          toastPopUp("User not exist please signup first");
+        }  else if (res.response.data.message == "ISE") {
           toastPopUp("Internal server error");
-        } else if (res.response.data.message == "VE") {
-          toastPopUp("Verification mail sent to your registred Email");
-        } else if (res.response.data.message == "VAE") {
+        } else if (res.response.data.message == "UNV") {
+          toastPopUp("User not verified so verification mail sent to mail");
+        } else if(res.response.data.message="TMR"){
+          toastPopUp("Too many request");
+        }else if (res.response.data.message == "VAE") {
           toastPopUp("Validation Error");
         } else {
           toastPopUp("Something went wrong");
@@ -113,21 +111,17 @@ const Page = () => {
         if (res.data && res.data.message && res.data.message === "SFL") {
           toastPopUp("Sucessfully signed in");
           window.location.href = '/'; // Force page refresh
-        } else if (res.response.data.message === "NV") {
-          toastPopUp("Something went wrong try login");
-        } else if (res.response.data.message === "SEXT") {
-          toastPopUp("Internal database error");
-        } else if (res.response.data.message == "TE") {
-          toastPopUp("Internal token error");
-        } else if (res.response.data.message == "ISE") {
+        } else if (res.response.data.message === "UNE") {
+          toastPopUp("User not exist please signup first");
+        }  else if (res.response.data.message == "ISE") {
           toastPopUp("Internal server error");
-        } else if (res.response.data.message == "VE") {
-          toastPopUp("Vrtify Yourself check your mailbox");
-        } else if (res.response.data.message == "VE") {
-          toastPopUp("Verification mail sent to your registred Email");
+        } else if (res.response.data.message == "UNV") {
+          toastPopUp("User not verified so verification mail sent to mail");
         } else if (res.response.data.message == "VAE") {
           toastPopUp("Validation Error");
-        } else {
+        } else if(res.response.data.message="TMR"){
+          toastPopUp("Too many request");
+        }else {
           toastPopUp("Something went wrong");
         }
       })
@@ -147,19 +141,15 @@ const Page = () => {
         console.log(res);
         if (res.data && res.data.message && res.data.message === "SFL") {
           handleSignupLogin(data);
-        } else if (res.response.data.message === "NV") {
-          toastPopUp("You are not authorized user");
-        } else if (res.response.data.message === "SEXT") {
-          toastPopUp("Internal database error");
-        } else if (res.response.data.message == "TE") {
-          toastPopUp("Internal token error");
-        } else if (res.response.data.message == "ISE") {
+        }else if (res.response.data.message == "ISE") {
           toastPopUp("Internal server error");
         } else if (res.response.data.message == "AR") {
           toastPopUp("Email already registered");
         } else if (res.response.data.message == "VAE") {
           toastPopUp("Validation Error");
-        } else {
+        } else if(res.response.data.message="TMR"){
+          toastPopUp("Too many request");
+        }else {
           toastPopUp("Something went wrong");
         }
       })
@@ -178,18 +168,19 @@ const Page = () => {
       .then((res) => {
         console.log(res);
         if (res.data && res.data.message && res.data.message === "SFL") {
-          toastPopUp("Sucessfully Processed");
-        } else if (res.response.data.message === "NV") {
-          toastPopUp("You are not authorized user");
-        } else if (res.response.data.message === "SEXT") {
-          toastPopUp("Internal database error");
-        } else if (res.response.data.message == "TE") {
-          toastPopUp("Internal token error");
+          toastPopUp("Sucessfully Reseted Password");
+        } else if (res.response.data.message === "UNE") {
+          toastPopUp("User not exist");
+        } else if (res.response.data.message == "UNV") {
+          toastPopUp("User Not verified try login and get the mail to make verification");
         } else if (res.response.data.message == "ISE") {
           toastPopUp("Internal server error");
         } else if (res.response.data.message == "VAE") {
           toastPopUp("Validation Error");
-        } else {
+        }else if(res.response.data.message="TMR"){
+          toastPopUp("Too many request");
+        }
+         else {
           toastPopUp("Something went wrong");
         }
       })
@@ -207,7 +198,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="height-100vh w-1/1 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 flex justify-center items-center">
+    <div className="height-100vh w-1/1 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex justify-center items-center">
       <div className="flex justify-between p-2 bg-gray-200 rounded-md user-box">
         <div className="h-1/1 flex flex-col items-center justify-center rotate-center">
           <h2>Next Vlog</h2>

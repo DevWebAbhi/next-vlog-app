@@ -45,6 +45,14 @@ body {
   height: 90vh;
 }
 
+.height-95vh{
+  height: 95vh;
+}
+
+.border-radius55{
+  border-radius: 55px;
+}
+
 .rotate-center :hover {
 	-webkit-animation: rotate-center 0.6s ease-in-out both;
 	        animation: rotate-center 0.6s ease-in-out both;

@@ -12,7 +12,7 @@ export async function GET(req) {
 
 
     if (!VlogID || !ParentID || !band) {
-      return NextResponse.json({ message: 'IP' }, { status: 400 });
+      return NextResponse.json({ message: 'IIP' }, { status: 400 });
     }
 
     let like = await executeQuery({

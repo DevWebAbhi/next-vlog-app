@@ -25,21 +25,25 @@ export async function POST(req) {
     if (login && login[0] && login[0][0]) {
       const loginMessage = login[0][0].Message;
 
-      if (loginMessage === "NV") {
-        return NextResponse.json({ message: "NV" }, { status: 401 });
+      if (loginMessage === "UNE") {
+        return NextResponse.json({ message: "UNE" }, { status: 401 });
       } else if (loginMessage === "SEXT") {
-        return NextResponse.json({ message: "SEXT" }, { status: 500 });
+        return NextResponse.json({ message: "ISE" }, { status: 500 });
       }
 
       const { Email, Username, UserID, IsVerified } = login[0][0];
+      if (!IsVerified) {
+        await mailer(email, authToken, "verification");
+        return NextResponse.json({ message: "UNV" }, { status: 401 });
+      }
       console.log(login[0][0]);
       if (Email && Username) {
-        try {
-          const authToken = await jwt.sign(
-            { email: Email, userName: Username, UserID },
-            JWT_CODE,
-            { algorithm: "HS256" }
-          );
+        const authToken = await jwt.sign(
+          { email: Email, userName: Username, UserID },
+          JWT_CODE,
+          { algorithm: "HS256", expiresIn: "1d" }
+        );
+        
 
           const updateToken = await executeQuery({
             query: `CALL nextvlog.UpdateToken(?, ?)`,
@@ -51,16 +55,11 @@ export async function POST(req) {
 
             if (updateTokenMessage === "SEXT") {
               return NextResponse.json({ message: "ISE" }, { status: 500 });
-            } else if (updateTokenMessage === "NV") {
-              return NextResponse.json({ message: "NV" }, { status: 401 });
+            } else if (updateTokenMessage === "UNE") {
+              return NextResponse.json({ message: "UNE" }, { status: 401 });
             }
           } else {
             return NextResponse.json({ message: "ISE" }, { status: 500 });
-          }
-
-          if (!IsVerified) {
-            await mailer(email, authToken, "verification");
-            return NextResponse.json({ message: "VE" }, { status: 401 });
           }
 
           // Create response
@@ -83,10 +82,7 @@ export async function POST(req) {
           });
 
           return response;
-        } catch (jwtError) {
-          console.error("JWT Token Error:", jwtError);
-          return NextResponse.json({ message: "TE" }, { status: 500 });
-        }
+        
       } else {
         return NextResponse.json({ message: "ISE" }, { status: 500 });
       }

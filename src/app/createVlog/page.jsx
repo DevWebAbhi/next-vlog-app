@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
 import { individualVlogs } from '@/app/redux/features/vlogSlice';
-import { CREATE_VLOG, GET_VLOGS } from '@/API/vlogAPI';
+import { CREATE_VLOG, GET_VLOGS } from '@/app/APIRequest/vlogAPI';
 import VlogCard from '../VlogCard';
 import Modal from 'react-modal';
 import "@/styles/login.css";
@@ -12,7 +12,7 @@ import { vlogSchema } from '@/zodValidations/zodValidations';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastPopUp } from "../CommonFunctions/popupInfo";
-import { aiOutputGenerator } from "@/API/ai";
+import { aiOutputGenerator } from "@/app/APIRequest/ai";
 const customStyles = {
   content: {
     top: '50%',
@@ -102,7 +102,9 @@ const Page = () => {
             toastPopUp("Try login again maybe session has expired");
           } else if (message == "NOV") {
             toastPopUp('No vlogs available');
-          } else {
+          } else if(res.response.data.message="TMR"){
+            toastPopUp("Too many request");
+          }else {
             toastPopUp("something went wrong");
           }
         } else {
@@ -138,8 +140,7 @@ const Page = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen text-center mb-5 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-10 pt-24 flex flex-col items-center">
+      <div className="min-h-screen text-center mb-5 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-10 pt-24 flex flex-col items-center">
         <div className="bg-white shadow-lg rounded-md p-6 w-full max-w-3xl">
           <h2 className='text-center text-gray-800 text-3xl mb-5'>Add Vlog</h2>
           <form onSubmit={createVlog} className='space-y-4'>

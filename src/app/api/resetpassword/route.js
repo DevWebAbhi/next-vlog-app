@@ -13,7 +13,7 @@ export async function POST(req = NextRequest) {
       const decoded = jwt.verify(token, JWT_CODE);
     } catch (jwtError) {
       console.error("JWT Verification Error:", jwtError);
-      return NextResponse.json({ message: "NV" }, { status: 401 });
+      return NextResponse.json({ message: "TEXP" }, { status: 401 });
     }
     try {
       userLoginSchema.parse({
@@ -24,18 +24,27 @@ export async function POST(req = NextRequest) {
       console.error("Validation Error:", validationError);
       return NextResponse.json({ message: "VAE" }, { status: 401 });
     }
-
+    
     const resetPassword = await executeQuery({
       query: "CALL nextvlog.ResetPasswordUser(?, ?, ?)",
       values: [email, token, newPassword],
     });
-
-    if (resetPassword == "SEXT") {
+    console.log(resetPassword)
+    if (resetPassword && resetPassword[0] && resetPassword[0][0]) {
+      const message = resetPassword[0][0].Message;
+      if (message == "SEXT") {
+        return NextResponse.json({ message: "ISE" }, { status: 500 });
+      } else if (message == "UNE") {
+        return NextResponse.json({ message: "UNE" }, { status: 401 });
+      }else if (message == "UNV") {
+        return NextResponse.json({ message: "UNV" }, { status: 401 });
+      }
+      return NextResponse.json({ message: "SFL" }, { status: 200 });
+    }else{
       return NextResponse.json({ message: "ISE" }, { status: 500 });
-    } else if (resetPassword == "NV") {
-      return NextResponse.json({ message: "NV" }, { status: 401 });
     }
-    return NextResponse.json({ message: "SFL" }, { status: 200 });
+    
+    
   } catch (error) {
     console.error("Password reset error:", error);
     return NextResponse.json({ message: "ISE" }, { status: 500 });

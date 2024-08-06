@@ -33,17 +33,6 @@ async function executeQuery({ query, values }) {
 }
 
 // Function to test the connection
-async function testConnection() {
-  const connectionPool = getPool();
-  try {
-    const connection = await connectionPool.getConnection();
-    console.log('Database connection successful');
-    connection.release();
-  } catch (error) {
-    console.error('Database connection failed:', error);
-  }
-}
 
-testConnection();
 
 module.exports = { getPool, executeQuery };

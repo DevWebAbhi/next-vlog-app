@@ -40,7 +40,14 @@ export async function POST(req) {
 
             if (Email && Username) {
                 try {
-                    const authToken = jwt.sign({ email, userName: Username , UserID }, JWT_CODE, { algorithm: 'HS256', expiresIn: '24h' });
+                    
+
+                const authToken = await jwt.sign(
+                { email: Email, userName: Username, UserID },
+                JWT_CODE,
+                { algorithm: "HS256", expiresIn: "1d" }
+                );
+
 
                     const updateToken = await executeQuery({
                         query: `CALL nextvlog.UpdateToken(?, ?)`,
@@ -66,6 +73,7 @@ export async function POST(req) {
                         httpOnly: true,
                         secure: true,
                     });
+                    
                     return response;
                 } catch (error) {
                     return NextResponse.json({ message: 'ISE' }, { status: 500 });
