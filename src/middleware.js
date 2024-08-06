@@ -52,28 +52,6 @@ export function middleware(req) {
     return NextResponse.json({ message: 'Potential SQL injection detected' }, { status: 400 });
   }
 
-  // Restrict access to /api/createVlog to 10 requests per 15 minutes per user
-  if (url === '/api/createVlog') {
-    const vlogKey = `vlog:${token}`;
-    const currentTime = Date.now();
-    const windowMs = 15 * 60 * 1000; // 15 minutes
-    const maxVlogRequests = 10;
-
-    if (!rateLimitStore.has(vlogKey)) {
-      rateLimitStore.set(vlogKey, []);
-    }
-
-    const vlogRequests = rateLimitStore.get(vlogKey);
-    const filteredVlogRequests = vlogRequests.filter(timestamp => currentTime - timestamp < windowMs);
-
-    if (filteredVlogRequests.length >= maxVlogRequests) {
-      return NextResponse.json({ message: 'Access limit exceeded for createVlog' }, { status: 429 });
-    }
-
-    filteredVlogRequests.push(currentTime);
-    rateLimitStore.set(vlogKey, filteredVlogRequests);
-  }
-
   return NextResponse.next();
 }
 
