@@ -6,7 +6,7 @@ const rateLimitStore = new Map();
 const rateLimiter = (ip, token) => {
   const currentTime = Date.now();
   const windowMs = 15 * 60 * 1000; 
-  const maxRequests = 70; 
+  const maxRequests = 100; 
 
   const ipKey = `ip:${ip}`;
   const tokenKey = `token:${token}`;
