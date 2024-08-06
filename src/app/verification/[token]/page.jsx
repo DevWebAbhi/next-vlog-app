@@ -1,7 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import Image from "next/image";
-import "@/styles/login.scss";
+import "@/styles/login.css";
 import { changeSignup,forgetPassword,loginEmail,loginPassword,reset,signupEmail,verificationEmail,verificationPassword,signupPassword,userName,forgetEmail, resetPassword, confirmResetPassword, resetPasswordEmail, loading } from "@/app/redux/features/userslice";
 import { userLoginSchema, userSignupSchema , forgetPasswordSchema} from "@/zodValidations/zodValidations";
 import { FORGET_PASSWORD, LOGIN, RESET_PASSWORD, SIGNUP } from "@/app/APIRequest/userAPI";
