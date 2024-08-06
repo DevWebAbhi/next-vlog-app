@@ -414,8 +414,7 @@ const PageClintModule = ({ userDetails }) => {
         if (res && res.data && res.data.allvlogs) {
           dispatch(vlogs(res.data.allvlogs));
           if (res.data.allvlogs.length > 0) {
-            console.log(Math.ceil(res.data.allvlogs.length/10));
-            dispatch(totalPage(Number(Math.ceil(res.data.allvlogs.length/10))));
+            dispatch(totalPage(Number(Math.ceil((res.data.allvlogs[0].VlogsCount)/10))));
           } else {
             dispatch(totalPage(1));
           }
