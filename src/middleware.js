@@ -6,7 +6,7 @@ const rateLimitStore = new Map();
 const rateLimiter = (ip, token) => {
   const currentTime = Date.now();
   const windowMs = 15 * 60 * 1000; 
-  const maxRequests = 5; 
+  const maxRequests = 70; 
 
   const ipKey = `ip:${ip}`;
   const tokenKey = `token:${token}`;
@@ -52,26 +52,26 @@ export function middleware(req) {
     return NextResponse.json({ message: 'Potential SQL injection detected' }, { status: 400 });
   }
 
-  // Additional check for file upload limit for createVlog route
+  // Restrict access to /api/createVlog to 10 requests per 15 minutes per user
   if (url === '/api/createVlog') {
-    const uploadKey = `uploads:${token}`;
+    const vlogKey = `vlog:${token}`;
     const currentTime = Date.now();
     const windowMs = 15 * 60 * 1000; // 15 minutes
-    const maxUploads = 5;
+    const maxVlogRequests = 10;
 
-    if (!rateLimitStore.has(uploadKey)) {
-      rateLimitStore.set(uploadKey, []);
+    if (!rateLimitStore.has(vlogKey)) {
+      rateLimitStore.set(vlogKey, []);
     }
 
-    const uploads = rateLimitStore.get(uploadKey);
-    const filteredUploads = uploads.filter(timestamp => currentTime - timestamp < windowMs);
+    const vlogRequests = rateLimitStore.get(vlogKey);
+    const filteredVlogRequests = vlogRequests.filter(timestamp => currentTime - timestamp < windowMs);
 
-    if (filteredUploads.length >= maxUploads) {
-      return NextResponse.json({ message: 'TMR' }, { status: 429 });
+    if (filteredVlogRequests.length >= maxVlogRequests) {
+      return NextResponse.json({ message: 'Access limit exceeded for createVlog' }, { status: 429 });
     }
 
-    filteredUploads.push(currentTime);
-    rateLimitStore.set(uploadKey, filteredUploads);
+    filteredVlogRequests.push(currentTime);
+    rateLimitStore.set(vlogKey, filteredVlogRequests);
   }
 
   return NextResponse.next();
