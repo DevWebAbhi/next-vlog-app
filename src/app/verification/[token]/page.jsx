@@ -88,8 +88,8 @@ const VerificationPage = () => {
           <form action="" onSubmit={verify}>
           <label htmlFor="email" >Email</label>
            <input id="email" type="email" onChange={e=>dispatch(verificationEmail(e.target.value))}/>
-            <label htmlFor="password" onChange={e=>dispatch(verificationPassword(e.target.value))}>Password</label>
-            <input id="password" type="password"  />
+            <label htmlFor="password" >Password</label>
+            <input id="password" type="password"  onChange={e=>dispatch(verificationPassword(e.target.value))}/>
             {
               selector.loading?
               <div
