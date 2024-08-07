@@ -71,4 +71,4 @@ git clone https://github.com/DevWebAbhi/next-vlog-app.git
 
 ### Home
 
-  <img src=""/>
+  <img src="./readmeAssets/blogcard.PNG" alt="image"/>
