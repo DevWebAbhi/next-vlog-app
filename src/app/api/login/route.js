@@ -39,10 +39,7 @@ export async function POST(req) {
           JWT_CODE,
           { algorithm: "HS256", expiresIn: "1d" }
         );
-      if (!IsVerified) {
-        await mailer(email, authToken, "verification");
-        return NextResponse.json({ message: "UNV" }, { status: 401 });
-      }
+      
       console.log(login[0][0]);
       
         
@@ -63,20 +60,23 @@ export async function POST(req) {
           } else {
             return NextResponse.json({ message: "ISE" }, { status: 500 });
           }
-
-          // Create response
+          if (!IsVerified) {
+            await mailer(email, authToken, "verification");
+            return NextResponse.json({ message: "UNV" }, { status: 401 });
+          }
+         
           const response = NextResponse.json(
             { message: "SFL", userName: Username, token: authToken, UserID },
             { status: 200 }
           );
 
-          // Set cookies with unique values
+          
           response.cookies.set("nextvlogauthtoken", authToken, {
             httpOnly: true,
             secure: true,
           });
 
-          // Serialize user details object to a JSON string
+          
           const userDetails = JSON.stringify({ Email, Username, UserID });
           response.cookies.set("nextvlogauthuserdetails", userDetails, {
             httpOnly: true,
