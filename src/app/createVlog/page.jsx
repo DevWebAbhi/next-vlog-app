@@ -104,7 +104,9 @@ const Page = () => {
             toastPopUp('No vlogs available');
           } else if(message=="TMR"){
             toastPopUp("Too many request");
-          }else {
+          }else if(res.response.status ==413){
+            toastPopUp("File should be less than or equals to 5 MB");
+          }else  {
             toastPopUp("something went wrong");
           }
         } else {

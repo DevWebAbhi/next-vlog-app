@@ -46,7 +46,7 @@ const Navbar = ({deleteCookies, userDetails}) => {
         <button onClick={e => { toggleMenu(); router.push('/createVlog'); }} className='block w-full text-left p-3'>Create Vlog</button>
         <button onClick={e => { toggleMenu(); router.push('/aiTool'); }} className='block w-full text-left p-3'>AI Tool</button>
         {
-          userDetails && userDetails.userName ?
+          userDetails && userDetails.Username ?
           <>
           <button onClick={e => {toggleMenu(); router.push('/user')}} className='ml-3 mr-3 username-color'>{userDetails.Username}</button>
           <button onClick={e => {toggleMenu(); deleteCookies(); }} className='block w-full text-left p-3'>Logout</button>
