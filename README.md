@@ -27,7 +27,7 @@ A comprehensive platform designed for creating and sharing multimedia-rich blogs
 - **Database:** MySQL for robust and reliable data storage.
 - **Media Storage:** Firebase Storage for secure handling of multimedia files.
 - **Nodemailer:** Nodemailer for mail services, including forget password and user verification.
-
+- **Tailwind:** Tailwind css is used here for great styling.
 ## About the Project
 
 I created this website as a learning project to get familiar with Next.js and MySQL. It was a challenging but rewarding experience to build a fully functional blog platform in just 15 days. I hope that this project can serve as a helpful resource for others who are learning these technologies.
