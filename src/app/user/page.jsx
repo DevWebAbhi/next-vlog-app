@@ -168,7 +168,7 @@ const Page = () => {
       .then((res) => {
         console.log(res);
         if (res.data && res.data.message && res.data.message === "SFL") {
-          toastPopUp("Sucessfully Reseted Password");
+          toastPopUp("Reset password link sent to email");
         } else if (res.response.data.message === "UNE") {
           toastPopUp("User not exist");
         } else if (res.response.data.message == "UNV") {
