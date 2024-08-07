@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import { passwordResetSchema } from "@/zodValidations/zodValidations";
 import { toastPopUp } from "@/app/CommonFunctions/popupInfo";
 import Spinner from "@/app/Spinner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
