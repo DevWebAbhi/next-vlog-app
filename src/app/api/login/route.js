@@ -32,17 +32,19 @@ export async function POST(req) {
       }
 
       const { Email, Username, UserID, IsVerified } = login[0][0];
+      let authToken;
+      if (Email && Username) {
+        authToken = jwt.sign(
+          { email: Email, userName: Username, UserID },
+          JWT_CODE,
+          { algorithm: "HS256", expiresIn: "1d" }
+        );
       if (!IsVerified) {
         await mailer(email, authToken, "verification");
         return NextResponse.json({ message: "UNV" }, { status: 401 });
       }
       console.log(login[0][0]);
-      if (Email && Username) {
-        const authToken = await jwt.sign(
-          { email: Email, userName: Username, UserID },
-          JWT_CODE,
-          { algorithm: "HS256", expiresIn: "1d" }
-        );
+      
         
 
           const updateToken = await executeQuery({
