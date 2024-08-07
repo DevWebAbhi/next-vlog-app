@@ -67,11 +67,14 @@ export async function POST(req) {
                     }
 
                     const response = NextResponse.json({ message: 'SFL', userName: Username, token: authToken ,UserID }, { status: 200 });
-                    response.cookies.set('nextvlogauthtoken', authToken, { httpOnly: true, secure: true });
+                    response.cookies.set('nextvlogauthtoken', authToken, { httpOnly: true,
+                        secure: true,
+                        maxAge: 24 * 60 * 60,});
                     const userDetails = JSON.stringify({ Email, Username, UserID });
                     response.cookies.set("nextvlogauthuserdetails", userDetails, {
                         httpOnly: true,
                         secure: true,
+                        maxAge: 24 * 60 * 60,
                     });
                     
                     return response;

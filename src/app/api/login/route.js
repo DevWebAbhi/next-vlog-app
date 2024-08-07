@@ -74,6 +74,7 @@ export async function POST(req) {
           response.cookies.set("nextvlogauthtoken", authToken, {
             httpOnly: true,
             secure: true,
+            maxAge: 24 * 60 * 60,
           });
 
           
@@ -81,6 +82,7 @@ export async function POST(req) {
           response.cookies.set("nextvlogauthuserdetails", userDetails, {
             httpOnly: true,
             secure: true,
+            maxAge: 24 * 60 * 60,
           });
 
           return response;

@@ -32,6 +32,12 @@ A comprehensive platform designed for creating and sharing multimedia-rich blogs
 
 I created this website as a learning project to get familiar with Next.js and MySQL. It was a challenging but rewarding experience to build a fully functional blog platform in just 15 days. I hope that this project can serve as a helpful resource for others who are learning these technologies.
 
+## Server Security
+
+- Sanatized body,query and params.
+- IP Address bocker for too many request.
+- token blacklisting for too many unethical requests.
+
 ## Getting Started
 
 Instructions for setting up and running the project locally are provided to ensure an easy start for developers.
@@ -47,7 +53,7 @@ Instructions for setting up and running the project locally are provided to ensu
 ### Installation
 
 1. **Clone the repository:**
-   ```bash
+
 git clone https://github.com/DevWebAbhi/next-vlog-app.git
 
 2. **cd next-vlog-app**
@@ -70,5 +76,40 @@ git clone https://github.com/DevWebAbhi/next-vlog-app.git
 ## Interface
 
 ### Home
-
+    - All Blogs will be visible here in this page and pagination is there in every page 10 vlogs can come and we can like and comment on blogs as well here
   <img src="./readmeAssets/blogcard.PNG" alt="image"/>
+
+### AI Page
+   - Its Ai prompt editor to resove your queries
+   <img src="./readmeAssets/aitool.PNG" alt="image"/>
+
+### Create Blog
+    - Here we are able to create blog and generate the title and description with the help of ai and upload images or videos if we want
+  <img src="./readmeAssets/createvlog.PNG" alt="image"/>
+
+### Create Blog AI Title and Description Generation Promt editor
+    - Here we are providing the text to ai for title and descriptio generation
+  <img src="./readmeAssets/ceateblogaitextwriting.PNG" alt="image"/>
+
+### Login
+    - Login
+  <img src="./readmeAssets/login.PNG" alt="image"/>  
+
+### Signup
+    - Signup
+  <img src="./readmeAssets/signup.PNG" alt="image"/>
+
+### Verification
+    - Verification
+  <img src="./readmeAssets/verification.PNG" alt="image"/>
+
+### Forget Password
+    - Forget Password
+  <img src="./readmeAssets/forgetpassword.PNG" alt="image"/>
+
+### Reset Password
+    - Reset Password
+  <img src="./readmeAssets/resetforgetpassword.PNG" alt="image"/>
+
+
+
