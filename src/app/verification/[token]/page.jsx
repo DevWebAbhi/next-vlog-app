@@ -23,6 +23,7 @@ const VerificationPage = () => {
   const intervalRef = useRef(null);
 
   const verify = async (e) => {
+    e.preventDefault();
     dispatch(loading(true));
     try {
 
